@@ -62,5 +62,5 @@ if __name__ == '__main__':
         'minGain': -80,
     }
 
-    model = NSNet2Demo(model_ckpt='nsnet2.ckpt', cfg=cfg)
-    model.enhance('test.wav')
+    model = NSNet2Demo(model_ckpt='save/nsnet2.ckpt', cfg=cfg)
+    model.enhance('test/test.wav')

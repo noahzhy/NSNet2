@@ -56,10 +56,14 @@ class NSNet2(nn.Module):
 
     def forward(self, x):
         shortcut = x
+        print(x.shape)
         x = self.feat(x)
+        print(x.shape)
 
         x = torch.relu(self.fc_input(x))
+        print(x.shape)
         x, _ = self.gru(x)
+        print(x.shape)
         x = torch.relu(self.dense0(x))
         x = torch.relu(self.dense1(x))
         x = torch.sigmoid(self.dense2(x))

@@ -37,8 +37,10 @@ for i in range(n_window):
     _win = np.fft.rfft(_win).astype(np.float32)
     # reshape to [n_freq, 1]
     _win = np.expand_dims(_win, axis=-1)
+    print(_win.shape)
     # onnx inference
     _win = sess.run(None, {input_name: _win})[0]
+    print(_win.shape)
     # squeeze to [n_freq]
     _win = np.squeeze(_win)
     # ifft

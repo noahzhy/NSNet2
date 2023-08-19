@@ -38,7 +38,7 @@ if __name__ == '__main__':
     y, sr = librosa.load('test/test.wav', sr=16000)
     raw = show_audio(y, title='Raw')
 
-    y, sr = librosa.load('test/test_nsnet2-20ms-baseline.wav', sr=16000)
+    y, sr = librosa.load('test/test_tflite.wav', sr=16000)
     after_p = show_audio(y, title='After Processing')
 
     # hstack two images

@@ -3,6 +3,7 @@
 *.wav
 *.ckpt
 *.pth
+save/*
 !save/nsnet2-20ms-baseline.onnx
 !test/test.wav
 
