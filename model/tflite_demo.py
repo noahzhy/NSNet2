@@ -4,7 +4,7 @@ import tensorflow as tf
 
 
 # load model from tflite
-interpreter = tf.lite.Interpreter(model_path='tinySenet.tflite')
+interpreter = tf.lite.Interpreter(model_path='save/tinySenet.tflite')
 interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
@@ -35,7 +35,6 @@ for i in range(n_window):
     _win = np.fft.irfft(_win).astype(np.float32)
     windows.append(_win)
 
-    
 # overlap and add
 out = np.zeros_like(audio)
 for i in range(n_window):
