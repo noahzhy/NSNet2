@@ -10,6 +10,8 @@ from model.rnn import *
 
 from get_flops import try_count_flops
 
+from keras_flops import get_flops
+
 # using cpu only
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
@@ -68,6 +70,10 @@ if __name__ == '__main__':
     model = TinySenet().build((161, 1))
     model.save('save/tinySenet.h5')
     model.summary()
+
+    # count flops
+    flops = get_flops(model, batch_size=1)
+    print('flops: {:.2f}M'.format(flops / 1e6))
 
     flops = try_count_flops(model)
     print('flops: {:.2f}M'.format(flops / 1e6))

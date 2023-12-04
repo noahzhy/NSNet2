@@ -10,6 +10,10 @@ The pipeline is based on the paper "Towards efficient models for real-time deep 
 The `model/nsnet2` model structure is same as the original model.
 The `model/nsnet2_ex` model is a modified version of the original model. Includes the preprocessing and postprocessing steps in the model, but excludes the FFT and IFFT processes.
 
+## Inference Time
+
+The inference time of the `model/tinySenet.py` model is 0.067 ms on Apple M2 chip.
+
 ## Attribution
 
 Pretrained model [NSNet2](https://github.com/microsoft/DNS-Challenge/tree/v4dnschallenge_ICASSP2022/NSNet2-baseline) by [Microsoft](https://github.com/microsoft) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
