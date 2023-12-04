@@ -1,16 +1,15 @@
 import os
+import sys
 
 import tensorflow as tf
 from tensorflow.keras.layers import *
 from tensorflow.keras import layers, models, optimizers
+from keras_flops import get_flops
 
-import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
 from model.rnn import *
-
 from get_flops import try_count_flops
 
-from keras_flops import get_flops
 
 # using cpu only
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -61,8 +60,7 @@ class TinySenet(models.Model):
         return models.Model(inputs=inputs, outputs=x, name='tinySenet')
 
     def call(self, x):
-        model = self.build(x.shape)
-        return model(x)
+        return self.build(x.shape)
 
 
 # main
