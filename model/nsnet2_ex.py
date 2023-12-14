@@ -108,9 +108,9 @@ if __name__ == '__main__':
     # irfft
     y = np.fft.irfft(y)
     print("after irfft:\t", y.shape)
-    # calc flops
-    from thop import profile
-    flops, params = profile(model, inputs=(x,))
-    # to Gflops
-    flops = flops / 1e9
-    print("FLOPs: %.2f G" % flops)
+    # # calc flops
+    # from thop import profile
+    # flops, params = profile(model, inputs=(x,))
+    # # to Gflops
+    # flops = flops / 1e9
+    # print("FLOPs: %.2f G" % flops)

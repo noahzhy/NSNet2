@@ -13,7 +13,7 @@ from PIL import Image
 def show_audio(y, title='Raw', sr=16000):
     plt.figure()
     plt.subplot(2, 1, 1)
-    librosa.display.waveshow(y, sr=sr)
+    librosa.display.waveshow(y, sr=sr, color='b')
     plt.title('{} audio signal'.format(title))
 
     plt.subplot(2, 1, 2)

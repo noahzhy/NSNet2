@@ -6,15 +6,16 @@ from tensorflow.python.framework.convert_to_constants import convert_variables_t
 def try_count_flops(model: Union[tf.Module, tf.keras.Model],
                     inputs_kwargs: Optional[Dict[str, Any]] = None,
                     output_path: Optional[str] = None):
-    """Counts and returns model FLOPs.
-  Args:
-    model: A model instance.
-    inputs_kwargs: An optional dictionary of argument pairs specifying inputs'
-      shape specifications to getting corresponding concrete function.
-    output_path: A file path to write the profiling results to.
-  Returns:
-    The model's FLOPs.
-  """
+    """
+    Counts and returns model FLOPs.
+    Args:
+        model: A model instance.
+        inputs_kwargs: An optional dictionary of argument pairs specifying inputs'
+            shape specifications to getting corresponding concrete function.
+        output_path: A file path to write the profiling results to.
+    Returns:
+        The model's FLOPs.
+    """
     if hasattr(model, 'inputs'):
         try:
             # Get input shape and set batch size to 1.
@@ -50,5 +51,8 @@ def try_count_flops(model: Union[tf.Module, tf.keras.Model],
             return None
     return None
 
-# flops = try_count_flops(Alexnet32())
-# print(flops/1000000,"M Flops")
+
+if __name__ == '__main__':
+    # flops = try_count_flops(Alexnet32())
+    # print(flops/1000000,"M Flops")
+    pass

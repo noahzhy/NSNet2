@@ -10,9 +10,13 @@ The pipeline is based on the paper "Towards efficient models for real-time deep 
 The `model/nsnet2` model structure is same as the original model.
 The `model/nsnet2_ex` model is a modified version of the original model. Includes the preprocessing and postprocessing steps in the model, but excludes the FFT and IFFT processes.
 
+In addition, the `model/tinySenet` model is a modified version of the original model. The model is implemented with a small number of parameters via tensorflow. Replace the original model GRU with a FastGRNN cell. The quantized tf-lite model get 0.067 ms inference time on Apple M2 chip.
+
 ## Inference Time
 
-The inference time of the `model/tinySenet.py` model is 0.067 ms on Apple M2 chip.
+| Model | Platform | Inference Time |
+| :---: | :---: | :---: |
+| tinySenet | Apple M2 | 0.067 ms |
 
 ## Attribution
 

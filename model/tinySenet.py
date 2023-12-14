@@ -15,20 +15,23 @@ from get_flops import try_count_flops
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 hidden_size = 320
-fast_grnn = [
-    FastGRNNCell(hidden_size),
-    FastGRNNCell(hidden_size),
-]
+
 
 class TinySenet(models.Model):
-    def __init__(self, n_freq_bins=161, rnn_dropout=0.2):
+    def __init__(self, n_freq_bins=161, hidden_size = 320, rnn_dropout=0.2):
         super(TinySenet, self).__init__()
         self.n_freq_bins = n_freq_bins
         self.dense0 = Dense(hidden_size, activation='relu')
         self.rnn = models.Sequential([], name='rnn')
 
-        for i in range(len(fast_grnn)):
-            self.rnn.add(RNN(fast_grnn[i], return_sequences=True, name='fast_grnn_{}'.format(i)))
+        # rnn cell stack
+        fast_grnn = [
+            FastGRNNCell(hidden_size),
+            FastGRNNCell(hidden_size),
+        ]
+
+        for idx, cell in enumerate(fast_grnn):
+            self.rnn.add(RNN(cell, return_sequences=True, name='fast_grnn_{}'.format(idx)))
             self.rnn.add(Dropout(rnn_dropout))
 
         self.dense1 = Dense(320, activation='relu')
