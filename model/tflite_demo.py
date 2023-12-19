@@ -6,7 +6,7 @@ import tensorflow as tf
 
 
 # load model from tflite
-interpreter = tf.lite.Interpreter(model_path='save/tinySenet.tflite')
+interpreter = tf.lite.Interpreter(model_path='save/tinyNSNet.tflite')
 interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()

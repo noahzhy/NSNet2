@@ -8,7 +8,7 @@ from keras_flops import get_flops
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
 from model.rnn import *
-from get_flops import try_count_flops
+# from get_flops import try_count_flops
 
 
 # using cpu only
@@ -17,9 +17,9 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 hidden_size = 320
 
 
-class TinySenet(models.Model):
-    def __init__(self, n_freq_bins=161, hidden_size = 320, rnn_dropout=0.2):
-        super(TinySenet, self).__init__()
+class TinyNSNet(models.Model):
+    def __init__(self, n_freq_bins=161, hidden_size=320, rnn_dropout=0.2):
+        super(TinyNSNet, self).__init__()
         self.n_freq_bins = n_freq_bins
         self.dense0 = Dense(hidden_size, activation='relu')
         self.rnn = models.Sequential([], name='rnn')
@@ -60,7 +60,7 @@ class TinySenet(models.Model):
         x = self.dense2(x)
         x = self.dense3(x)
         x = self.limitGain(x, inputs)
-        return models.Model(inputs=inputs, outputs=x, name='tinySenet')
+        return models.Model(inputs=inputs, outputs=x, name='tinyNSNet')
 
     def call(self, x):
         return self.build(x.shape)
@@ -68,8 +68,8 @@ class TinySenet(models.Model):
 
 # main
 if __name__ == '__main__':
-    model = TinySenet().build((161, 1))
-    model.save('save/tinySenet.h5')
+    model = TinyNSNet().build((161, 1))
+    model.save('save/tinyNSNet.h5')
     model.summary()
 
     # count flops
@@ -90,5 +90,5 @@ if __name__ == '__main__':
     ]
 
     tflite_model = converter.convert()
-    with open('save/tinySenet.tflite', 'wb') as f:
+    with open('save/tinyNSNet.tflite', 'wb') as f:
         f.write(tflite_model)

@@ -1,30 +1,43 @@
-import os
-import torch
+import os, sys, time, glob, random
 
-from model.nsnet2 import NSNet2
+import tensorflow as tf
+from tensorflow.keras import optimizers
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
+from tensorflow.keras.optimizers import *
+from tensorflow.keras.losses import *
 
 
-train_dir = './WAVs/dataset/training'
-val_dir = './WAVs/dataset/validation'
+from model.tinyNSNet import TinyNSNet
 
-train_cfg = {
-    'train_dir': train_dir,
-    'val_dir': val_dir,
-    'batch_size': 64,
-    'alpha': 0.35,
-}
 
-model_cfg = {
-    'n_fft': 320,
-    'hop_len': 160,
-    'win_len': 320,
-}
 
-model = NSNet2(model_cfg)
-# adamw
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
-# MSE
-criterion = torch.nn.MSELoss()
+# main
+if __name__ == '__main__':
+    train_dir = './WAVs/dataset/training'
+    val_dir = './WAVs/dataset/validation'
 
-# train
+    train_cfg = {
+        'train_dir': train_dir,
+        'val_dir': val_dir,
+        'batch_size': 64,
+        'alpha': 0.35,
+    }
 
+    model_cfg = {
+        'n_fft': 320,
+        'hop_len': 160,
+        'win_len': 320,
+    }
+
+    model = TinyNSNet().build(input_shape=(161, 1))
+    # summary
+    model.summary()
+    quit()
+
+    # adamw
+    optimizer = Nadam(learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+    # MSE
+    criterion = MSELoss()
+
+    # train
+    train(model, optimizer, criterion, train_cfg, model_cfg)
